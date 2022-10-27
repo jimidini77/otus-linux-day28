@@ -171,7 +171,39 @@
 - `default` меню загрузки PXE
 - `ks.cfg` Kickstart-файл для автоматической установки, дефолтное значение меню установки настроено на него
 
-После развёртывания и конфигурирование `pxeserver` при запуск `pxeclient` выполняется автоматическая установка ОС на машину.
+После развёртывания и конфигурирование `pxeserver` при запуск `pxeclient` выполняется автоматическая установка ОС на машину. Запуск `pxeclient` из Vagrant завершается по таймауту:
+
+```
+...
+==> pxeclient: Running 'pre-boot' VM customizations...
+==> pxeclient: Booting VM...
+==> pxeclient: Waiting for machine to boot. This may take a few minutes...
+    pxeclient: SSH address: 127.0.0.1:22
+    pxeclient: SSH username: vagrant
+    pxeclient: SSH auth method: private key
+    pxeclient: Warning: Authentication failure. Retrying...
+    pxeclient: Warning: Authentication failure. Retrying...
+...
+    pxeclient: Warning: Authentication failure. Retrying...
+    pxeclient: Warning: Authentication failure. Retrying...
+Timed out while waiting for the machine to boot. This means that
+Vagrant was unable to communicate with the guest machine within
+the configured ("config.vm.boot_timeout" value) time period.
+
+If you look above, you should be able to see the error(s) that
+Vagrant had when attempting to connect to the machine. These errors
+are usually good hints as to what may be wrong.
+
+If you're using a custom box, make sure that networking is properly
+working and you're able to connect to the machine. It is a common
+problem that networking isn't setup properly in these boxes.
+Verify that authentication configurations are also setup properly,
+as well.
+
+If the box appears to be booting properly, you may want to increase
+the timeout ("config.vm.boot_timeout") value.
+root@nas:/study/day28# client_loop: send disconnect: Connection reset
+```
 
 ![Screenshot](https://github.com/jimidini77/otus-linux-day28/blob/main/Screenshot01.png?raw=true)
 
